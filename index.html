@@ -407,7 +407,18 @@
       .history-actions {
         display: flex;
         justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 8px;
         margin-top: 8px;
+      }
+      .delete-match-btn {
+        border: 1px solid rgba(255, 90, 90, 0.55);
+        background: transparent;
+        color: #ff8b8b;
+        border-radius: 8px;
+        padding: 8px 11px;
+        font-size: 12px;
+        font-weight: 800;
       }
       .detail-btn {
         background: var(--lime);
@@ -1882,6 +1893,24 @@
       function currentMatch() {
         return matches.find((m) => m.id === activeId);
       }
+      function nextMatchNumber() {
+        return matches.reduce((max, m) => {
+          const n = Number(m && m.matchNumber);
+          return Number.isFinite(n) ? Math.max(max, n) : max;
+        }, 0) + 1;
+      }
+      // Asignar número a partidos anteriores que fueron guardados antes de esta mejora.
+      (function ensureMatchNumbers() {
+        let next = 1;
+        matches.forEach((m) => {
+          const n = Number(m && m.matchNumber);
+          if (!Number.isInteger(n) || n < 1) m.matchNumber = next;
+          next = Math.max(next, Number(m.matchNumber) + 1);
+        });
+        if (matches.length) {
+          try { localStorage.setItem('padel-matches-v3', JSON.stringify(matches)); } catch (e) {}
+        }
+      })();
       function getCompletedMatches() {
         return matches.filter((m) => m && m.finished === true);
       }
@@ -1913,12 +1942,18 @@
           goTo('tracker');
           return;
         }
-        const opponent = prompt('Nombre del rival o pareja rival:');
+        const matchNumber = nextMatchNumber();
+        const opponent = prompt(
+          `PARTIDO N.º ${matchNumber}\nNombre del rival o pareja rival:`,
+        );
         if (opponent === null) return;
-        const partner = prompt('Nombre de tu compañero/a (opcional):');
+        const partner = prompt(
+          `PARTIDO N.º ${matchNumber}\nNombre de tu compañero/a (opcional; podés dejarlo vacío):`,
+        );
         if (partner === null) return;
         const m = {
           id: Date.now(),
+          matchNumber,
           opponent: opponent.trim() || 'Rival sin nombre',
           partner: partner.trim(),
           date: new Date().toLocaleDateString('es-AR'),
@@ -1935,7 +1970,8 @@
           return;
         }
         document.getElementById('tracker').classList.add('active');
-        document.getElementById('matchName').textContent = m.opponent;
+        document.getElementById('matchName').textContent =
+          `Partido N.º ${m.matchNumber} · ${m.opponent}`;
         document.getElementById('trackerNotice').textContent =
           'Elegí un golpe para comenzar.';
         document.getElementById('chosen').textContent =
@@ -3630,7 +3666,7 @@
                 const opponent =
                   m.rivalName || m.rival || m.opponent || 'Partido de práctica';
                 return `<div class="history-item"><div class="between"><strong>${safe(
-                  opponent
+                  Number(m.matchNumber) > 0 ? `Partido N.º ${m.matchNumber} · ${opponent}` : opponent
                 )}</strong><span class="muted">${safe(
                   m.date || 'Sin fecha'
                 )}</span></div>${
@@ -3661,7 +3697,9 @@
                   String(m.id)
                 )}">EDITAR COMPAÑERO / RIVAL</button><button type="button" class="secondary edit-match-notes" data-match-id="${safe(
                   String(m.id)
-                )}">NOTAS DEL PARTIDO</button></div></div>`;
+                )}">NOTAS DEL PARTIDO</button><button type="button" class="delete-match-btn delete-match" data-match-id="${safe(
+                  String(m.id)
+                )}">ELIMINAR PARTIDO</button></div></div>`;
               })
               .join('')
           : matches.length
@@ -3681,6 +3719,40 @@
               editMatchNames(btn.dataset.matchId)
             )
           );
+        document
+          .querySelectorAll('.delete-match[data-match-id]')
+          .forEach((btn) =>
+            btn.addEventListener('click', () => deleteMatch(btn.dataset.matchId))
+          );
+      }
+
+      function deleteMatch(id) {
+        const index = matches.findIndex((m) => String(m.id) === String(id));
+        if (index < 0) {
+          showMessage('No se encontró ese partido en el historial.');
+          return;
+        }
+        const match = matches[index];
+        const label = Number(match.matchNumber) > 0
+          ? `Partido N.º ${match.matchNumber}`
+          : 'este partido';
+        if (!confirm(`¿Seguro que querés eliminar ${label}? Esta acción no se puede deshacer.`)) return;
+        const previousMatches = matches;
+        matches = matches.filter((m) => String(m.id) !== String(id));
+        const wasActive = String(activeId) === String(id);
+        if (wasActive) activeId = null;
+        if (!persist()) {
+          matches = previousMatches;
+          if (wasActive) activeId = match.id;
+          renderHistoryFilter();
+          return;
+        }
+        render();
+        if (wasActive) {
+          document.getElementById('tracker').classList.remove('active');
+          goTo('historyPanel');
+        }
+        showMessage(`${label} eliminado del historial.`);
       }
 
       function editMatchNames(id) {

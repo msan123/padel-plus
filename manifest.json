@@ -1,0 +1,11 @@
+{
+  "name": "PADEL+",
+  "short_name": "PADEL+",
+  "description": "Estadísticas y entrenador personal de pádel",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#071321",
+  "theme_color": "#071321",
+  "orientation": "portrait"
+}
