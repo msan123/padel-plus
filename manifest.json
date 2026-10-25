@@ -1,25 +1,11 @@
 {
-  "name": "PADEL+ — Tu entrenador de pádel",
+  "name": "PADEL+",
   "short_name": "PADEL+",
-  "description": "Registrá partidos y golpes, consultá tu progreso y recibí recomendaciones para mejorar tu pádel.",
+  "description": "Estadísticas y entrenador personal de pádel",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#071321",
   "theme_color": "#071321",
-  "orientation": "portrait",
-  "icons": [
-    {
-      "src": "./icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    }
-  ]
+  "orientation": "portrait"
 }

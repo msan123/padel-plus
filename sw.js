@@ -1,26 +1,29 @@
-const CACHE_NAME = 'padel-plus-v63';
-const APP_FILES = [
-  './',
-  './index.html',
-  './manifest.json',
-  './styles.css',
-  './script.js',
-  './icon.svg',
-  './icon-192.png',
-  './icon-512.png'
-];
+const CACHE_NAME = 'padel-plus-v61';
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_FILES)));
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) =>
+      cache.addAll([
+        './',
+        './index.html',
+        './manifest.json',
+        './styles.css',
+        './script.js'
+      ])
+    )
+  );
   self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => Promise.all(
-      keys.filter((key) => key.startsWith('padel-plus-') && key !== CACHE_NAME)
-        .map((key) => caches.delete(key))
-    ))
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys
+          .filter((key) => key.startsWith('padel-plus-') && key !== CACHE_NAME)
+          .map((key) => caches.delete(key))
+      )
+    )
   );
   self.clients.claim();
 });

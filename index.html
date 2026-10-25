@@ -15,8 +15,6 @@
     />
     <meta name="apple-mobile-web-app-title" content="PADEL+" />
     <link rel="manifest" href="./manifest.json" />
-    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
-    <link rel="apple-touch-icon" href="./icon-192.png" />
     <title>PADEL+ — Tu entrenador de pádel v60</title>
     <style>
       :root {
@@ -176,8 +174,8 @@
         background: linear-gradient(145deg, #0e2539, #091827);
         border: 1px solid var(--line);
         border-radius: 18px;
-        padding: 14px;
-        margin-top: 10px;
+        padding: 20px;
+        margin-top: 15px;
       }
       h2 {
         font-size: 16px;
@@ -198,16 +196,16 @@
       .shot-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 6px;
-        margin-top: 8px;
+        gap: 9px;
+        margin-top: 12px;
       }
       .shot {
-        min-height: 58px;
+        min-height: 78px;
         background: var(--panel2);
         color: white;
         border: 1px solid var(--line);
         border-radius: 13px;
-        padding: 7px 5px;
+        padding: 10px 5px;
         font-weight: bold;
       }
       .shot .emoji {
@@ -223,13 +221,13 @@
       .results {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 6px;
-        margin-top: 8px;
+        gap: 9px;
+        margin-top: 12px;
       }
       .result {
         border: 1px solid var(--line);
         border-radius: 12px;
-        padding: 9px 8px;
+        padding: 14px 8px;
         background: var(--panel2);
         color: white;
         font-weight: bold;
@@ -4353,22 +4351,7 @@
           return;
         }
         w.document.write(
-          '<html><head><title>Informe mensual PADEL+</title><style>body{font:15px Arial;padding:24px;color:#111}table{width:100%;border-collapse:collapse;margin-top:16px}td,th{padding:8px;border:1px solid #ccc;text-align:left}.metrics,.progress-grid{display:flex;gap:14px;flex-wrap:wrap}.metric,.viz-card{padding:12px;border:1px solid #ccc;border-radius:8px;min-width:120px}button,input{display:none}
-/* PADEL+ mejora de registro: menos desplazamiento entre golpe y resultado */
-@media (min-width: 700px) {
-  .shot-grid { gap: 6px; margin-top: 8px; }
-  .shot { min-height: 58px; padding: 7px 5px; }
-  .results { gap: 7px; margin-top: 8px; }
-  .result { padding: 9px 8px; }
-}
-@media (max-width: 699px) {
-  .shot-grid { gap: 6px; margin-top: 8px; }
-  .shot { min-height: 54px; padding: 7px 4px; }
-  .results { gap: 7px; margin-top: 8px; }
-  .result { padding: 10px 7px; }
-}
-
-</style></head><body><h1>PADEL+ · Informe mensual</h1>' +
+          '<html><head><title>Informe mensual PADEL+</title><style>body{font:15px Arial;padding:24px;color:#111}table{width:100%;border-collapse:collapse;margin-top:16px}td,th{padding:8px;border:1px solid #ccc;text-align:left}.metrics,.progress-grid{display:flex;gap:14px;flex-wrap:wrap}.metric,.viz-card{padding:12px;border:1px solid #ccc;border-radius:8px;min-width:120px}button,input{display:none}</style></head><body><h1>PADEL+ · Informe mensual</h1>' +
             el.innerHTML +
             '</body></html>'
         );
