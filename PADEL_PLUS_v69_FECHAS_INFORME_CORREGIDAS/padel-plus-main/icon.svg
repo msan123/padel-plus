@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<rect width="512" height="512" rx="76" fill="#071321"/>
+<defs><linearGradient id="r" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8ff4f"/><stop offset="1" stop-color="#9be820"/></linearGradient></defs>
+<g transform="rotate(28 230 205)">
+<rect x="115" y="45" width="205" height="255" rx="94" fill="#101e2d" stroke="url(#r)" stroke-width="12"/>
+<g fill="#071321" stroke="#aaf02b" stroke-width="4">
+<circle cx="165" cy="100" r="9"/><circle cx="215" cy="88" r="9"/><circle cx="265" cy="100" r="9"/>
+<circle cx="150" cy="145" r="9"/><circle cx="200" cy="135" r="9"/><circle cx="250" cy="145" r="9"/><circle cx="285" cy="150" r="9"/>
+<circle cx="165" cy="190" r="9"/><circle cx="215" cy="180" r="9"/><circle cx="265" cy="190" r="9"/>
+<circle cx="185" cy="230" r="9"/><circle cx="235" cy="225" r="9"/>
+</g>
+<rect x="192" y="286" width="38" height="105" rx="15" fill="#16283a" stroke="#aaf02b" stroke-width="7"/>
+</g>
+<circle cx="365" cy="290" r="48" fill="#b9f52f"/><path d="M340 255 Q385 290 353 328" fill="none" stroke="#f5ffd0" stroke-width="7"/>
+<text x="256" y="455" text-anchor="middle" font-family="Arial,sans-serif" font-size="55" font-weight="900" font-style="italic" fill="#f7f9fc">PADEL<tspan fill="#b9f52f">+</tspan></text>
+</svg>
